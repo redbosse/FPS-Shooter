@@ -273,6 +273,8 @@ MonoBehaviour:
   moveSpeed: 5
   rotationSpeed: 90
   rotationSensivity: {x: 1, y: 1}
+  MaxYAngle: 35
+  MinYAngle: -35
   Rotate_X: 1
   Rotate_Y: 0
   Move_X: 0
@@ -1086,6 +1088,8 @@ MonoBehaviour:
   moveSpeed: 5
   rotationSpeed: 90
   rotationSensivity: {x: 1, y: 1}
+  MaxYAngle: 70
+  MinYAngle: -70
   Rotate_X: 0
   Rotate_Y: 1
   Move_X: 1

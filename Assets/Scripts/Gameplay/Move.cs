@@ -1,3 +1,4 @@
+using DG.Tweening;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -11,6 +12,12 @@ public class Move : MonoBehaviour
 
     [SerializeField]
     private Vector2 rotationSensivity = Vector2.one;
+
+    [SerializeField]
+    private float MaxYAngle = 70;
+
+    [SerializeField]
+    private float MinYAngle = -70;
 
     [SerializeField]
     private bool Rotate_X = true, Rotate_Y = true;
@@ -59,11 +66,14 @@ public class Move : MonoBehaviour
         transform.position += (Move_X ? (transform.right * moveSpeed * leftStick.x * Time.deltaTime) : Vector3.zero)
                             + (Move_Z ? (transform.forward * moveSpeed * leftStick.y * Time.deltaTime) : Vector3.zero);
 
-        Vector3 eyler = transform.localEulerAngles;
+        transform.Rotate(
+            (Rotate_X ? -rigthStick.y * Time.deltaTime * rotationSpeed * rotationSensivity.y : 0.0f),
+            (Rotate_Y ? rigthStick.x * Time.deltaTime * rotationSpeed * rotationSensivity.x : 0.0f),
+            0);
+        var quat = transform.localRotation;
 
-        eyler.x += (Rotate_X ? -rigthStick.y * Time.deltaTime * rotationSpeed * rotationSensivity.y : 0.0f);
-        eyler.y += (Rotate_Y ? rigthStick.x * Time.deltaTime * rotationSpeed * rotationSensivity.x : 0.0f);
+        Debug.Log(quat.x * 360 / Mathf.PI);
 
-        transform.localEulerAngles = eyler;
+        transform.localRotation = new Quaternion(Mathf.Clamp(quat.x, -MaxYAngle * Mathf.PI / 360, -MinYAngle * Mathf.PI / 360), quat.y, quat.z, quat.w);
     }
 }
