@@ -61,19 +61,29 @@ public class Move : MonoBehaviour
         rigthStick = direction;
     }
 
-    private void Update()
+    private void CalculateTransformation()
     {
-        transform.position += (Move_X ? (transform.right * moveSpeed * leftStick.x * Time.deltaTime) : Vector3.zero)
-                            + (Move_Z ? (transform.forward * moveSpeed * leftStick.y * Time.deltaTime) : Vector3.zero);
+        float deltaSpeed = moveSpeed * Time.deltaTime;
 
-        transform.Rotate(
-            (Rotate_X ? -rigthStick.y * Time.deltaTime * rotationSpeed * rotationSensivity.y : 0.0f),
-            (Rotate_Y ? rigthStick.x * Time.deltaTime * rotationSpeed * rotationSensivity.x : 0.0f),
-            0);
+        Vector3 zero = Vector3.zero;
+        Vector3 rigthDirection = transform.right * leftStick.x;
+        Vector3 forwardDirection = transform.forward * leftStick.y;
+
+        transform.position += (Move_X ? (rigthDirection * deltaSpeed) : zero) + (Move_Z ? (forwardDirection * deltaSpeed) : zero);
+
+        float deltaRotation = rotationSpeed * Time.deltaTime;
+
+        transform.Rotate((Rotate_X ? -rigthStick.y * deltaRotation * rotationSensivity.y : 0.0f), (Rotate_Y ? rigthStick.x * deltaRotation * rotationSensivity.x : 0.0f), 0);
+
         var quat = transform.localRotation;
 
-        Debug.Log(quat.x * 360 / Mathf.PI);
+        float degresConverter = Mathf.PI / 360;
 
-        transform.localRotation = new Quaternion(Mathf.Clamp(quat.x, -MaxYAngle * Mathf.PI / 360, -MinYAngle * Mathf.PI / 360), quat.y, quat.z, quat.w);
+        transform.localRotation = new Quaternion(Mathf.Clamp(quat.x, -MaxYAngle * degresConverter, -MinYAngle * degresConverter), quat.y, quat.z, quat.w);
+    }
+
+    private void Update()
+    {
+        CalculateTransformation();
     }
 }
