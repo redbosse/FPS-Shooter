@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class Knob : MonoBehaviour
+namespace UI
 {
-    public void MoveTo(Vector2 position)
+    public class Knob : MonoBehaviour
     {
-        transform.localPosition = position;
+        public void MoveTo(Vector2 position)
+        {
+            transform.localPosition = position;
+        }
     }
 }

@@ -1,37 +1,40 @@
-using System;
 using UniRx;
 using UnityEngine;
 using Zenject;
 
-public class CameraMotion : MonoBehaviour
+namespace Gameplay.Controllers
 {
-    [Inject]
-    private ICameraMotion cameraMotion;
-
-    private CompositeDisposable disposables;
-
-    private void CameraUpdate()
+    public class CameraMotion : MonoBehaviour
     {
-        transform.localPosition = cameraMotion.CameraLocalPosition(transform.localPosition);
-        transform.localRotation = cameraMotion.CameraLocalOrientation(transform.localRotation);
-    }
+        [Inject]
+        private ICameraMotion cameraMotion;
 
-    private void OnEnable()
-    {
-        if (disposables == null)
-            disposables = new CompositeDisposable();
+        private CompositeDisposable disposables;
 
-        Observable.EveryUpdate().Repeat().Subscribe(_ =>
+        private void CameraUpdate()
         {
-            CameraUpdate();
-        }).AddTo(disposables);
-    }
+            transform.localPosition = cameraMotion.CameraLocalPosition(transform.localPosition);
+            transform.localRotation = cameraMotion.CameraLocalOrientation(transform.localRotation);
+        
+        }
 
-    private void OnDisable()
-    {
-        if (disposables != null)
+        private void OnEnable()
         {
-            disposables.Dispose();
+            if (disposables == null)
+                disposables = new CompositeDisposable();
+
+            Observable.EveryUpdate().Repeat().Subscribe(_ =>
+            {
+                CameraUpdate();
+            }).AddTo(disposables);
+        }
+
+        private void OnDisable()
+        {
+            if (disposables != null)
+            {
+                disposables.Dispose();
+            }
         }
     }
 }

@@ -1,15 +1,18 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(Stick))]
-public class StickInEditor : Editor
+namespace UI
 {
-    private void OnSceneGUI()
+    [CustomEditor(typeof(Stick))]
+    public class StickInEditor : Editor
     {
-        var t = target as Stick;
+        private void OnSceneGUI()
+        {
+            var t = target as Stick;
 
-        Handles.color = Color.yellow;
+            Handles.color = Color.yellow;
 
-        Handles.DrawWireDisc(t.Center.position, t.Center.forward, t.Radius);
+            if (t) Handles.DrawWireDisc(t.Center.position, t.Center.forward, t.Radius);
+        }
     }
 }

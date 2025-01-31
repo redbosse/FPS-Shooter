@@ -1,16 +1,19 @@
-﻿using UnityEngine;
-using System;
+﻿using Gameplay.Controllers;
+using UnityEngine;
 using Zenject;
 
-public class PlayerBehavaviourInstaller : MonoInstaller<PlayerBehavaviourInstaller>
+namespace ZenjectInstallers
 {
-    [SerializeField]
-    private PlayerConfiguration configuration;
-
-    public override void InstallBindings()
+    public class PlayerBehavaviourInstaller : MonoInstaller<PlayerBehavaviourInstaller>
     {
-        Container.Bind<ICameraMotion>().To<CameraMotionComponent>().AsSingle();
+        [SerializeField]
+        private PlayerConfiguration configuration;
 
-        Container.BindInstances(configuration);
+        public override void InstallBindings()
+        {
+            Container.Bind<ICameraMotion>().To<CameraMotionComponent>().AsSingle();
+
+            Container.BindInstances(configuration);
+        }
     }
 }

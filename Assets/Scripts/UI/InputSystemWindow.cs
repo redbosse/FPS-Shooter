@@ -1,58 +1,60 @@
-﻿using Unity.VisualScripting;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-internal class InputSystemWindow : EditorWindow
+namespace UI
 {
-    private Stick[] sticks;
-
-    [MenuItem("RED/Manage Input System")]
-    private static void ManageInputSystem()
+    internal class InputSystemWindow : EditorWindow
     {
-        EditorWindow.GetWindow(typeof(InputSystemWindow));
-    }
+        private Stick[] sticks;
 
-    private void OnGUI()
-    {
-        GUILayout.Label("Stick on the Scene", EditorStyles.boldLabel);
-
-        if (GUILayout.Button($"Add the StickCommutator"))
+        [MenuItem("RED/Manage Input System")]
+        private static void ManageInputSystem()
         {
-            Stick[] sticks = GameObject.FindObjectsByType<Stick>(UnityEngine.FindObjectsSortMode.None);
+            EditorWindow.GetWindow(typeof(InputSystemWindow));
+        }
 
-            foreach (Stick stick in sticks)
+        private void OnGUI()
+        {
+            GUILayout.Label("Stick on the Scene", EditorStyles.boldLabel);
+
+            if (GUILayout.Button($"Add the StickCommutator"))
             {
-                StickPool.Init(stick);
+                Stick[] sticks = GameObject.FindObjectsByType<Stick>(UnityEngine.FindObjectsSortMode.None);
+
+                foreach (Stick stick in sticks)
+                {
+                    StickPool.Init(stick);
+                }
+
+                StickCommutator commutator;
+
+                var obj = Selection.activeObject as GameObject ?? throw new System.Exception("Selected is null");
+
+                if (!obj.GetComponent<StickCommutator>())
+                {
+                    commutator = obj.AddComponent<StickCommutator>();
+
+                    commutator.LeftStick = StickPool.Left;
+                    commutator.RigthStick = StickPool.Rigth;
+                }
             }
 
-            StickCommutator commutator;
-
-            var obj = Selection.activeObject as GameObject ?? throw new System.Exception("Selected is null");
-
-            if (!obj.GetComponent<StickCommutator>())
+            if (GUILayout.Button("Clear Input from Selected"))
             {
-                commutator = obj.AddComponent<StickCommutator>();
+                var obj = Selection.activeObject as GameObject ?? throw new System.Exception("Selected is null");
 
-                commutator.LeftStick = StickPool.Left;
-                commutator.RigthStick = StickPool.Rigth;
+                var commutator = obj.GetComponent<StickCommutator>();
+
+                if (commutator)
+                {
+                    commutator.Clear();
+                }
             }
         }
 
-        if (GUILayout.Button("Clear Input from Selected"))
+        private void OnFocus()
         {
-            var obj = Selection.activeObject as GameObject ?? throw new System.Exception("Selected is null");
-
-            var commutator = obj.GetComponent<StickCommutator>();
-
-            if (commutator)
-            {
-                commutator.Clear();
-            }
+            sticks = GameObject.FindObjectsByType<Stick>(UnityEngine.FindObjectsSortMode.None);
         }
-    }
-
-    private void OnFocus()
-    {
-        sticks = GameObject.FindObjectsByType<Stick>(UnityEngine.FindObjectsSortMode.None);
     }
 }

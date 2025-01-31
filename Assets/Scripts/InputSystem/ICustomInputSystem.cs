@@ -2,7 +2,10 @@
 using UnityEngine;
 using Zenject;
 
-public interface ICustomInputSystem : IDisposable, IInitializable, ITickable
+namespace InputSystem
 {
-    public Vector2 MoveAxis();
+    public interface ICustomInputSystem : IDisposable, IInitializable, ITickable
+    {
+        public Vector2 MoveAxis();
+    }
 }

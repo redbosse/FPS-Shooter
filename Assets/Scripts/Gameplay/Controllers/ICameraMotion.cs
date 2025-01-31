@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 
-public interface ICameraMotion
+namespace Gameplay.Controllers
 {
-    public Quaternion CameraLocalOrientation(Quaternion sourceOrientation);
+    public interface ICameraMotion
+    {
+        public Quaternion CameraLocalOrientation(Quaternion sourceOrientation);
 
-    public Vector3 CameraLocalPosition(Vector3 sourcePosition);
+        public Vector3 CameraLocalPosition(Vector3 sourcePosition);
+    }
 }

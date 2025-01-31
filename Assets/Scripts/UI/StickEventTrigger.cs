@@ -1,33 +1,35 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class StickEventTrigger : EventTrigger
+namespace UI
 {
-    public enum StickEvent
+    public class StickEventTrigger : EventTrigger
     {
-        BeginDrag,
-        ProcessDrag,
-        EndDrag
-    }
+        public enum StickEvent
+        {
+            BeginDrag,
+            ProcessDrag,
+            EndDrag
+        }
 
-    public event UnityAction<Vector2, StickEvent> OnStickEventHandler;
+        public event UnityAction<Vector2, StickEvent> OnStickEventHandler;
 
-    private void CallTheEvent(Vector2 position, StickEvent stickEvent) => OnStickEventHandler?.Invoke(position, stickEvent);
+        private void CallTheEvent(Vector2 position, StickEvent stickEvent) => OnStickEventHandler?.Invoke(position, stickEvent);
 
-    public override void OnBeginDrag(PointerEventData eventData)
-    {
-        CallTheEvent(eventData.position, StickEvent.BeginDrag);
-    }
+        public override void OnBeginDrag(PointerEventData eventData)
+        {
+            CallTheEvent(eventData.position, StickEvent.BeginDrag);
+        }
 
-    public override void OnDrag(PointerEventData eventData)
-    {
-        CallTheEvent(eventData.position, StickEvent.ProcessDrag);
-    }
+        public override void OnDrag(PointerEventData eventData)
+        {
+            CallTheEvent(eventData.position, StickEvent.ProcessDrag);
+        }
 
-    public override void OnEndDrag(PointerEventData eventData)
-    {
-        CallTheEvent(eventData.position, StickEvent.EndDrag);
+        public override void OnEndDrag(PointerEventData eventData)
+        {
+            CallTheEvent(eventData.position, StickEvent.EndDrag);
+        }
     }
 }

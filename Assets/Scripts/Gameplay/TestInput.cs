@@ -1,12 +1,16 @@
+using InputSystem;
 using UnityEngine;
 using Zenject;
 
-public class TestInput : MonoBehaviour
+namespace Gameplay
 {
-    [Inject]
-    private ICustomInputSystem customInputSystem;
-
-    private void Start()
+    public class TestInput : MonoBehaviour
     {
+        [Inject]
+        private ICustomInputSystem customInputSystem;
+
+        private void Start()
+        {
+        }
     }
 }

@@ -1,89 +1,98 @@
-using DG.Tweening;
-using JetBrains.Annotations;
+using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Move : MonoBehaviour
+namespace Gameplay.Controllers
 {
-    [SerializeField]
-    private float moveSpeed = 1;
-
-    [SerializeField]
-    private float rotationSpeed = 15;
-
-    [SerializeField]
-    private Vector2 rotationSensivity = Vector2.one;
-
-    [SerializeField]
-    private float MaxYAngle = 70;
-
-    [SerializeField]
-    private float MinYAngle = -70;
-
-    [SerializeField]
-    private bool Rotate_X = true, Rotate_Y = true;
-
-    [SerializeField]
-    private bool Move_X = true, Move_Z = true;
-
-    private StickCommutator commutator;
-
-    private Vector2 leftStick;
-    private Vector2 rigthStick;
-
-    private void OnEnable()
+    public class Move : MonoBehaviour
     {
-        if (commutator == null)
-            commutator = GetComponent<StickCommutator>();
+        [SerializeField]
+        private float moveSpeed = 1;
 
-        if (!commutator)
-            throw new System.Exception("Commutator is null");
+        [SerializeField]
+        private float rotationSpeed = 15;
 
-        commutator.LeftStick.OnStick.AddListener(LeftStick);
-        commutator.RigthStick.OnStick.AddListener(RigthStick);
-    }
+        [SerializeField]
+        private Vector2 rotationSensivity = Vector2.one;
 
-    private void OnDisable()
-    {
-        if (!commutator)
-            throw new System.Exception("Commutator is null");
+         [SerializeField]
+        private float maxYAngle = 70;
 
-        commutator.LeftStick.OnStick.RemoveListener(LeftStick);
-        commutator.RigthStick.OnStick.RemoveListener(RigthStick);
-    }
+         [SerializeField]
+        private float minYAngle = -70;
 
-    private void LeftStick(Vector2 direction)
-    {
-        leftStick = direction;
-    }
+         [SerializeField]
+        private bool rotateX = true;
 
-    private void RigthStick(Vector2 direction)
-    {
-        rigthStick = direction;
-    }
+         [SerializeField]
+        private bool rotateY = true;
 
-    private void CalculateTransformation()
-    {
-        float deltaSpeed = moveSpeed * Time.deltaTime;
+        [SerializeField]
+        private bool moveX = true;
 
-        Vector3 zero = Vector3.zero;
-        Vector3 rigthDirection = transform.right * leftStick.x;
-        Vector3 forwardDirection = transform.forward * leftStick.y;
+        [SerializeField]
+        private bool moveZ = true;
 
-        transform.position += (Move_X ? (rigthDirection * deltaSpeed) : zero) + (Move_Z ? (forwardDirection * deltaSpeed) : zero);
+        private StickCommutator commutator;
 
-        float deltaRotation = rotationSpeed * Time.deltaTime;
+        private Vector2 leftStick;
+        private Vector2 rigthStick;
 
-        transform.Rotate((Rotate_X ? -rigthStick.y * deltaRotation * rotationSensivity.y : 0.0f), (Rotate_Y ? rigthStick.x * deltaRotation * rotationSensivity.x : 0.0f), 0);
+        private void OnEnable()
+        {
+            if (commutator == null)
+                commutator = GetComponent<StickCommutator>();
 
-        var quat = transform.localRotation;
+            if (!commutator)
+                throw new System.Exception("Commutator is null");
 
-        float degresConverter = Mathf.PI / 360;
+            commutator.LeftStick.OnStick.AddListener(LeftStick);
+            commutator.RigthStick.OnStick.AddListener(RigthStick);
+        }
 
-        transform.localRotation = new Quaternion(Mathf.Clamp(quat.x, -MaxYAngle * degresConverter, -MinYAngle * degresConverter), quat.y, quat.z, quat.w);
-    }
+        private void OnDisable()
+        {
+            if (!commutator)
+                throw new System.Exception("Commutator is null");
 
-    private void Update()
-    {
-        CalculateTransformation();
+            commutator.LeftStick.OnStick.RemoveListener(LeftStick);
+            commutator.RigthStick.OnStick.RemoveListener(RigthStick);
+        }
+
+        private void LeftStick(Vector2 direction)
+        {
+            leftStick = direction;
+        }
+
+        private void RigthStick(Vector2 direction)
+        {
+            rigthStick = direction;
+        }
+
+        private void CalculateTransformation()
+        {
+            float deltaSpeed = moveSpeed * Time.deltaTime;
+
+            Vector3 zero = Vector3.zero;
+            Vector3 rigthDirection = transform.right * leftStick.x;
+            Vector3 forwardDirection = transform.forward * leftStick.y;
+
+            transform.position += (moveX ? (rigthDirection * deltaSpeed) : zero) + (moveZ ? (forwardDirection * deltaSpeed) : zero);
+
+            float deltaRotation = rotationSpeed * Time.deltaTime;
+
+            transform.Rotate((rotateX ? -rigthStick.y * deltaRotation * rotationSensivity.y : 0.0f), (rotateY ? rigthStick.x * deltaRotation * rotationSensivity.x : 0.0f), 0);
+
+            var quat = transform.localRotation;
+
+            float degresConverter = Mathf.PI / 360;
+
+            transform.localRotation = new Quaternion(Mathf.Clamp(quat.x, -maxYAngle * degresConverter, -minYAngle * degresConverter), quat.y, quat.z, quat.w);
+        }
+
+        private void Update()
+        {
+            CalculateTransformation();
+        }
     }
 }

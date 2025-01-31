@@ -1,26 +1,28 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PCInputSystem : ICustomInputSystem
+namespace InputSystem
 {
-    private Vector2 moveAxis = Vector2.zero;
-
-    public void Initialize()
+    public class PCInputSystem : ICustomInputSystem
     {
-    }
+        private Vector2 moveAxis = Vector2.zero;
 
-    public Vector2 MoveAxis()
-    {
-        return moveAxis;
-    }
+        public void Initialize()
+        {
+        }
 
-    public void Tick()
-    {
-        moveAxis.x = Input.GetAxis("Horizontal");
-        moveAxis.y = Input.GetAxis("Vertical");
-    }
+        public Vector2 MoveAxis()
+        {
+            return moveAxis;
+        }
 
-    public void Dispose()
-    {
+        public void Tick()
+        {
+            moveAxis.x = Input.GetAxis("Horizontal");
+            moveAxis.y = Input.GetAxis("Vertical");
+        }
+
+        public void Dispose()
+        {
+        }
     }
 }

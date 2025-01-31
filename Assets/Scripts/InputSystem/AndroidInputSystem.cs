@@ -1,25 +1,27 @@
-using System;
 using UnityEngine;
 
-public class AndroidInputSystem : ICustomInputSystem
+namespace InputSystem
 {
-    private Vector2 moveAxis;
-
-    public void Initialize()
+    public class AndroidInputSystem : ICustomInputSystem
     {
-        Debug.Log(this.GetType().Name);
-    }
+        private Vector2 moveAxis;
 
-    public Vector2 MoveAxis()
-    {
-        return moveAxis;
-    }
+        public void Initialize()
+        {
+           
+        }
 
-    public void Tick()
-    {
-    }
+        public Vector2 MoveAxis()
+        {
+            return moveAxis;
+        }
 
-    public void Dispose()
-    {
+        public void Tick()
+        {
+        }
+
+        public void Dispose()
+        {
+        }
     }
 }

@@ -1,62 +1,59 @@
 using System;
+using InputSystem;
 using UnityEngine;
 using Zenject;
 
-public class InputSystemInstaller : MonoInstaller<InputSystemInstaller>
+namespace ZenjectInstallers
 {
-    private enum BuildTarget
+    public partial class InputSystemInstaller : MonoInstaller<InputSystemInstaller>
     {
-        PC,
-        IOS,
-        Android
-    }
+        [SerializeField]
+        private BuildTarget buildTarget;
 
-    [SerializeField]
-    private BuildTarget buildTarget;
-
-    public override void InstallBindings()
-    {
-        switch (buildTarget)
+        public override void InstallBindings()
         {
-            case BuildTarget.PC:
+            switch (buildTarget)
+            {
+                case BuildTarget.PC:
 
-                Container.Bind(
-               typeof(ITickable),
-               typeof(IDisposable),
-               typeof(IInitializable),
-               typeof(ICustomInputSystem)).To<PCInputSystem>().AsSingle();
+                    Container.Bind(
+                        typeof(ITickable),
+                        typeof(IDisposable),
+                        typeof(IInitializable),
+                        typeof(ICustomInputSystem)).To<PCInputSystem>().AsSingle();
 
-                break;
+                    break;
 
-            case BuildTarget.Android:
+                case BuildTarget.Android:
 
-                Container.Bind(
-               typeof(ITickable),
-               typeof(IDisposable),
-               typeof(IInitializable),
-               typeof(ICustomInputSystem)).To<AndroidInputSystem>().AsSingle();
+                    Container.Bind(
+                        typeof(ITickable),
+                        typeof(IDisposable),
+                        typeof(IInitializable),
+                        typeof(ICustomInputSystem)).To<AndroidInputSystem>().AsSingle();
 
-                break;
+                    break;
 
-            case BuildTarget.IOS:
+                case BuildTarget.IOS:
 
-                Container.Bind(
-               typeof(ITickable),
-               typeof(IDisposable),
-               typeof(IInitializable),
-               typeof(ICustomInputSystem)).To<IOSInputSystem>().AsSingle();
+                    Container.Bind(
+                        typeof(ITickable),
+                        typeof(IDisposable),
+                        typeof(IInitializable),
+                        typeof(ICustomInputSystem)).To<IOSInputSystem>().AsSingle();
 
-                break;
+                    break;
 
-            default:
+                default:
 
-                Container.Bind(
-               typeof(ITickable),
-               typeof(IDisposable),
-               typeof(IInitializable),
-               typeof(ICustomInputSystem)).To<PCInputSystem>().AsSingle();
+                    Container.Bind(
+                        typeof(ITickable),
+                        typeof(IDisposable),
+                        typeof(IInitializable),
+                        typeof(ICustomInputSystem)).To<PCInputSystem>().AsSingle();
 
-                break;
+                    break;
+            }
         }
     }
 }
