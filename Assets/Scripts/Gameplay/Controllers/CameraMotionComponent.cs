@@ -22,14 +22,16 @@ namespace Gameplay.Controllers
             return sourceOrientation;
         }
 
+        
         public Vector3 CameraLocalPosition(Vector3 sourcePosition)
         {
             var axis = customInputSystem.MoveAxis();
 
-            var position = sourcePosition
-                           + (forward * (axis.y * playerConfiguration.MoveSpeed) 
-                              + right * (axis.x * playerConfiguration.MoveSpeed) )* Time.deltaTime;
-
+            var moveMouseAxis = customInputSystem.MoveMouseAxis();
+            var position = sourcePosition +
+                           forward * (moveMouseAxis.y * playerConfiguration.MoveSpeed * Time.deltaTime) +
+                           right * (moveMouseAxis.x * playerConfiguration.MoveSpeed * Time.deltaTime);
+            
             return position;
         }
     }
