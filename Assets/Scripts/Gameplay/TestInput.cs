@@ -8,11 +8,5 @@ public class TestInput : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(customInputSystem.MoveAxis());
-    }
-
-    private void Update()
-    {
-        Debug.Log(customInputSystem.MoveAxis());
     }
 }

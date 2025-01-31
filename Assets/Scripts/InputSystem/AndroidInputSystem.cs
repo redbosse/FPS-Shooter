@@ -1,19 +1,22 @@
 using System;
 using UnityEngine;
 
-public class MobileInputSystem : ICustomInputSystem
+public class AndroidInputSystem : ICustomInputSystem
 {
+    private Vector2 moveAxis;
+
     public void Dispose()
     {
     }
 
     public void Initialize()
     {
+        Debug.Log(this.GetType().Name);
     }
 
     public Vector2 MoveAxis()
     {
-        return new Vector2(0f, 0f);
+        return moveAxis;
     }
 
     public void Tick()

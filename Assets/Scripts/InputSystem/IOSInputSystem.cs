@@ -5,24 +5,25 @@ using Zenject;
 
 using Random = UnityEngine.Random;
 
-public class IOSInputSystem : ICustomInputSystem, IDisposable, IInitializable, ITickable
+public class IOSInputSystem : ICustomInputSystem
 {
-    private Vector2 vector = Vector2.one;
+    public void Dispose()
+    {
+        throw new NotImplementedException();
+    }
 
     public void Initialize()
     {
+        throw new NotImplementedException();
     }
 
     public Vector2 MoveAxis()
     {
-        return vector;
+        throw new NotImplementedException();
     }
 
     public void Tick()
     {
-    }
-
-    public void Dispose()
-    {
+        throw new NotImplementedException();
     }
 }

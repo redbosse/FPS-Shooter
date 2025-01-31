@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b6f3e27fa5c184ca695d143716c527, type: 3}
   m_Name: ApplicationContext
   m_EditorClassIdentifier: 
-  a: 2
+  buildTarget: 0
