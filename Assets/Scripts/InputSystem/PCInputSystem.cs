@@ -5,13 +5,8 @@ public class PCInputSystem : ICustomInputSystem
 {
     private Vector2 moveAxis = Vector2.zero;
 
-    public void Dispose()
-    {
-    }
-
     public void Initialize()
     {
-        Debug.Log(this.GetType().Name);
     }
 
     public Vector2 MoveAxis()
@@ -20,6 +15,12 @@ public class PCInputSystem : ICustomInputSystem
     }
 
     public void Tick()
+    {
+        moveAxis.x = Input.GetAxis("Horizontal");
+        moveAxis.y = Input.GetAxis("Vertical");
+    }
+
+    public void Dispose()
     {
     }
 }

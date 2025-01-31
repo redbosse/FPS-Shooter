@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91b6f3e27fa5c184ca695d143716c527, type: 3}
-  m_Name: ApplicationContext
+  m_Script: {fileID: 11500000, guid: 58cd32f659b5d914899b553b2b7dbddc, type: 3}
+  m_Name: PlayerConfiguration
   m_EditorClassIdentifier: 
-  buildTarget: 0
+  moveSpeed: 4
+  rotationSpeed: 0.5
