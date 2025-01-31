@@ -17,18 +17,18 @@ namespace Gameplay.Controllers
 
         public Quaternion CameraLocalOrientation(Quaternion sourceOrientation)
         {
-            Vector2 axis = customInputSystem.MoveAxis();
+            var axis = customInputSystem.MoveAxis();
 
             return sourceOrientation;
         }
 
         public Vector3 CameraLocalPosition(Vector3 sourcePosition)
         {
-            Vector2 axis = customInputSystem.MoveAxis();
+            var axis = customInputSystem.MoveAxis();
 
-            Vector3 position = sourcePosition
-                               + (forward * (axis.y * playerConfiguration.MoveSpeed) 
-                                  + right * (axis.x * playerConfiguration.MoveSpeed) )* Time.deltaTime;
+            var position = sourcePosition
+                           + (forward * (axis.y * playerConfiguration.MoveSpeed) 
+                              + right * (axis.x * playerConfiguration.MoveSpeed) )* Time.deltaTime;
 
             return position;
         }

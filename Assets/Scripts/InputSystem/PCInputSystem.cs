@@ -15,6 +15,11 @@ namespace InputSystem
             return moveAxis;
         }
 
+        public Vector2 MoveMouseAxis()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Tick()
         {
             moveAxis.x = Input.GetAxis("Horizontal");

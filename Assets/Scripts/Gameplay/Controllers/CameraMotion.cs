@@ -11,6 +11,7 @@ namespace Gameplay.Controllers
 
         private CompositeDisposable disposables;
 
+       
         private void CameraUpdate()
         {
             transform.localPosition = cameraMotion.CameraLocalPosition(transform.localPosition);
@@ -20,8 +21,7 @@ namespace Gameplay.Controllers
 
         private void OnEnable()
         {
-            if (disposables == null)
-                disposables = new CompositeDisposable();
+            disposables ??= new CompositeDisposable();
 
             Observable.EveryUpdate().Repeat().Subscribe(_ =>
             {
@@ -31,10 +31,7 @@ namespace Gameplay.Controllers
 
         private void OnDisable()
         {
-            if (disposables != null)
-            {
-                disposables.Dispose();
-            }
+            disposables?.Dispose();
         }
     }
 }

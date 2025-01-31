@@ -8,9 +8,6 @@ namespace Gameplay
     {
         [Inject]
         private ICustomInputSystem customInputSystem;
-
-        private void Start()
-        {
-        }
+     
     }
 }

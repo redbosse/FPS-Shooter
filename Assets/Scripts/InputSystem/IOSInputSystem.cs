@@ -20,6 +20,11 @@ namespace InputSystem
             throw new NotImplementedException();
         }
 
+        public Vector2 MoveMouseAxis()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Tick()
         {
             throw new NotImplementedException();

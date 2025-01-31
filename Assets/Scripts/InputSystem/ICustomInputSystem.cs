@@ -7,5 +7,6 @@ namespace InputSystem
     public interface ICustomInputSystem : IDisposable, IInitializable, ITickable
     {
         public Vector2 MoveAxis();
+        public Vector2 MoveMouseAxis();
     }
 }
